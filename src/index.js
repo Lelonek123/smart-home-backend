@@ -29,7 +29,7 @@ io.on("connection", (socket) => {
         console.log(`Driver connected: ${socket.handshake.query.id}`);
     } else if (socket.handshake.query.type == "webApp") {
         // web app connected
-        webClient.onConnection(socket, sqlCon);
+        webClient.onConnection(socket, connection);
     }
 });
 
