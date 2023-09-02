@@ -17,7 +17,10 @@ function onConnection(socket, sqlCon) {
                 callback({ status: "ERR", error: "Cannot acces database." });
                 return;
             }
-            callback({ status: "OK", drivers: result });
+
+            console.log(result);
+            const drivers = [];
+            callback({ status: "OK", drivers: drivers });
         });
     });
 
