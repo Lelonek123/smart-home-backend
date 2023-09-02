@@ -5,7 +5,6 @@ const { Server } = require("socket.io");
 
 const connection = mysql.createConnection({
     host: "localhost",
-    port: "80",
     user: "root",
     password: "Qwerty12!",
     database: "sterownik_sql",
