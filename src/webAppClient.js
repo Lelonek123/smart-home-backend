@@ -37,11 +37,16 @@ function onConnection(socket, sqlCon) {
                 });
                 break;
             case "remove":
-                drivers.splice(
-                    drivers.findIndex((e) => {
-                        e.id == data.id;
-                    }, 1),
-                );
+                const query = `INSERT INTO parametry (USER_ID, MAC_ADDR, NAME) VALUES ("${data.uid}", "${data.mac_addr}", "${data.name}")`;
+                sqlCon.query(query, function (err, result) {
+                    if (err) {
+                        callback({
+                            status: "ERR",
+                            error: "Cannot acces database.",
+                        });
+                        return;
+                    }
+                });
                 break;
         }
         callback({ status: "OK" });
