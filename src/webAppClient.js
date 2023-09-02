@@ -18,11 +18,12 @@ function onConnection(socket, sqlCon) {
                 return;
             }
             const drivers = [];
+            console.log(result);
 
-            for (let i = 0; i < result.mac_addr.length; i++) {
-                drivers.push({ id: result.mac_addr[i], name: result.name[i] });
-            }
-            console.log(drivers);
+            // for (let i = 0; i < result.mac_addr.len; i++) {
+            //     drivers.push({ id: result.mac_addr[i], name: result.name[i] });
+            // }
+            // console.log(drivers);
             callback({ status: "OK", drivers: drivers });
         });
     });
