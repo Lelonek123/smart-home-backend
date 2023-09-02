@@ -1,4 +1,4 @@
-var mysql = require("mysql");
+var mysql = require("mysql2");
 const PORT = 1337;
 const webClient = require("./webAppClient.js");
 const { Server } = require("socket.io");
@@ -9,6 +9,11 @@ const connection = mysql.createConnection({
     user: "root",
     passord: "Qwerty12!",
     database: "sterownik_sql",
+});
+
+connection.connect(function (err) {
+    if (err) throw err;
+    console.log("MySQL database connected!");
 });
 
 const io = new Server({
