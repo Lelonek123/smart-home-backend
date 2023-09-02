@@ -21,7 +21,7 @@ function onConnection(socket, sqlCon) {
         });
     });
 
-    socket.on("update-drivers", (data) => {
+    socket.on("update-drivers", (data, callback) => {
         const action = data.action;
         switch (action) {
             case "add":
@@ -44,10 +44,10 @@ function onConnection(socket, sqlCon) {
                 );
                 break;
         }
-
-        socket.on("select-device", (data) => {});
+        callback({ status: "OK" });
     });
 
+    socket.on("select-device", (data) => {});
     socket.on("update-state", (data) => {});
 }
 
