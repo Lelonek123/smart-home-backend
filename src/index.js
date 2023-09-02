@@ -5,7 +5,7 @@ const webClient = require("./webAppClient.js");
 const { Server } = require("socket.io");
 const io = new Server({
     cors: {
-        origin: "htpp://95.48.106.222:1331/",
+        origin: "http://95.48.106.222:1331/",
     },
 });
 
