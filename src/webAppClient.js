@@ -17,14 +17,7 @@ function onConnection(socket, sqlCon) {
                 callback({ status: "ERR", error: "Cannot acces database." });
                 return;
             }
-            const drivers = [];
-            console.log(result);
-
-            // for (let i = 0; i < result.mac_addr.len; i++) {
-            //     drivers.push({ id: result.mac_addr[i], name: result.name[i] });
-            // }
-            // console.log(drivers);
-            callback({ status: "OK", drivers: drivers });
+            callback({ status: "OK", drivers: result });
         });
     });
 
