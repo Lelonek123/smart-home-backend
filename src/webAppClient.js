@@ -17,7 +17,6 @@ function onConnection(socket, sqlCon) {
                 callback({ status: "ERR", error: "Cannot acces database." });
                 return;
             }
-            console.log(result);
             callback({ status: "OK", drivers: result });
         });
     });
@@ -26,7 +25,16 @@ function onConnection(socket, sqlCon) {
         const action = data.action;
         switch (action) {
             case "add":
-                drivers.push({ id: data.id, name: data.name });
+                const query = `INSERT INTO parametry (USER_ID, MAC_ADDR, NAME) VALUES ("${data.uid}", "${data.mac_addr}", "${data.name}")`;
+                sqlCon.query(query, function (err, result) {
+                    if (err) {
+                        callback({
+                            status: "ERR",
+                            error: "Cannot acces database.",
+                        });
+                        return;
+                    }
+                });
                 break;
             case "remove":
                 drivers.splice(
@@ -34,13 +42,6 @@ function onConnection(socket, sqlCon) {
                         e.id == data.id;
                     }, 1),
                 );
-                break;
-            case "update":
-                drivers(
-                    drivers.findIndex((e) => {
-                        e.id == data.id;
-                    }),
-                ).name = data.name;
                 break;
         }
 
