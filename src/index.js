@@ -1,4 +1,4 @@
-const PORT = 2000;
+const PORT = 1337;
 
 const webClient = require("./webAppClient.js");
 

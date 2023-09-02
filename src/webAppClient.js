@@ -24,17 +24,19 @@ function onConnection(socket) {
                 drivers.splice(
                     drivers.findIndex((e) => {
                         e.id == data.id;
-                    }, 1)
+                    }, 1),
                 );
                 break;
             case "update":
                 drivers(
                     drivers.findIndex((e) => {
                         e.id == data.id;
-                    })
+                    }),
                 ).name = data.name;
                 break;
         }
+
+        socket.on("select-device", (data) => {});
     });
 
     socket.on("update-state", (data) => {});
