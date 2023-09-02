@@ -23,9 +23,10 @@ function onConnection(socket, sqlCon) {
 
     socket.on("update-drivers", (data, callback) => {
         const action = data.action;
+        let query;
         switch (action) {
             case "add":
-                const query = `INSERT INTO parametry (USER_ID, MAC_ADDR, NAME) VALUES ("${data.uid}", "${data.mac_addr}", "${data.name}")`;
+                query = `INSERT INTO parametry (USER_ID, MAC_ADDR, NAME) VALUES ("${data.uid}", "${data.mac_addr}", "${data.name}")`;
                 sqlCon.query(query, function (err, result) {
                     if (err) {
                         callback({
@@ -37,7 +38,7 @@ function onConnection(socket, sqlCon) {
                 });
                 break;
             case "remove":
-                const query = `INSERT INTO parametry (USER_ID, MAC_ADDR, NAME) VALUES ("${data.uid}", "${data.mac_addr}", "${data.name}")`;
+                query = `DELETE FROM parametry WHERE USER_ID = "${data.uid}" AND MAC_ADDR = "${data.mac_addr}"`;
                 sqlCon.query(query, function (err, result) {
                     if (err) {
                         callback({
