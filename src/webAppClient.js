@@ -11,15 +11,19 @@ function onConnection(socket, sqlCon) {
     });
 
     socket.on("get-drivers", (uid, callback) => {
-        const query = `SELECT * FROM parametry WHERE USER_ID = '${uid}'`;
+        const query = `SELECT mac_addr,name FROM parametry WHERE USER_ID = '${uid}'`;
         sqlCon.query(query, function (err, result) {
             if (err) {
-                console.log(err);
-                callback({ status: "ERR" });
+                callback({ status: "ERR", error: "Cannot acces database." });
                 return;
             }
-            const drivers = result;
+            const drivers = [];
+
+            for (let i = 0; i < result.mac_addr.length; i++) {
+                drivers.push({ id: result.mac_addr[i], name: result.name[i] });
+            }
             console.log(drivers);
+            callback({ status: "OK", drivers: drivers });
         });
     });
 
