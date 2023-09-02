@@ -1,9 +1,9 @@
-const drivers = [
-    { id: "22:22:22:22", name: "home" },
-    { id: "11:11:11:11", name: "home2" },
-];
+// const drivers = [
+//     { id: "22:22:22:22", name: "home" },
+//     { id: "11:11:11:11", name: "home2" },
+// ];
 
-function onConnection(socket) {
+function onConnection(socket, sqlCon) {
     console.log(`Web client connected`);
 
     socket.on("disconnect", () => {
@@ -11,7 +11,15 @@ function onConnection(socket) {
     });
 
     socket.on("get-drivers", (uid, callback) => {
-        callback({ status: "OK", drivers: drivers });
+        const query = `SELECT * FROM parametry WHERE USER_ID = ${uid};`;
+        sqlCon.query(query, (err, result) => {
+            if (err) {
+                callback({ status: "ERR" });
+                return;
+            }
+            const drivers = result;
+            console.log(drivers);
+        });
     });
 
     socket.on("update-drivers", (data) => {
