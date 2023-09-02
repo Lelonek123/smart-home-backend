@@ -4,7 +4,7 @@ const webClient = require("./webAppClient.js");
 const { Server } = require("socket.io");
 
 const connection = mysql.createConnection({
-    host: "localhost",
+    host: "localhost:80",
     user: "root",
     passord: "Qwerty12!",
     database: "sterownik_sql",
