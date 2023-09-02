@@ -11,11 +11,6 @@ const connection = mysql.createConnection({
     database: "sterownik_sql",
 });
 
-connection.connect(function (err) {
-    if (err) throw err;
-    console.log("MySQL database connected!");
-});
-
 const io = new Server({
     cors: {
         origin: "http://95.48.106.222:1331",

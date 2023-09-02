@@ -12,13 +12,18 @@ function onConnection(socket, sqlCon) {
 
     socket.on("get-drivers", (uid, callback) => {
         const query = `SELECT * FROM parametry WHERE USER_ID = ${uid};`;
-        sqlCon.query(query, (err, result) => {
-            if (err) {
-                callback({ status: "ERR" });
-                return;
-            }
-            const drivers = result;
-            console.log(drivers);
+
+        connection.connect(function (err) {
+            if (err) throw err;
+
+            connection.query(query, (err, result) => {
+                if (err) {
+                    callback({ status: "ERR" });
+                    return;
+                }
+                const drivers = result;
+                console.log(drivers);
+            });
         });
     });
 
