@@ -1,7 +1,41 @@
-// const drivers = [
-//     { id: "22:22:22:22", name: "home" },
-//     { id: "11:11:11:11", name: "home2" },
-// ];
+let devicesData = {
+    "22:22:22:22": {
+        mac_addr: "22:22:22:22",
+        isOnline: true,
+        isPowered: true,
+        alarm: true,
+        peripherals: [
+            {
+                name: "lampargb",
+                id: "lampa3123123",
+                type: "light_rgb",
+            },
+            { name: "brama", id: "brama31231231233", type: "garage_gate" },
+            { name: "lampka", id: "lampka231312", type: "light" },
+            { name: "zamek", id: "zamek231312", type: "lock" },
+        ],
+        peripherals_state: {
+            lampa3123123: {
+                on: true,
+                rgb: "#222225",
+            },
+            brama31231231233: {
+                open: false,
+            },
+            lampka231312: {
+                on: false,
+            },
+            zamek231312: {
+                open: false,
+                timeout: 5,
+            },
+        },
+    },
+    "11:11:11:11": {
+        mac_addr: "11:11:11:11",
+        isOnline: false,
+    },
+};
 
 function onConnection(socket, sqlCon) {
     console.log(`Web client connected`);
@@ -53,8 +87,22 @@ function onConnection(socket, sqlCon) {
         callback({ status: "OK" });
     });
 
-    socket.on("select-device", (data) => {});
-    socket.on("update-state", (data) => {});
+    socket.on("select-device", (data, callback) => {
+        const state = devicesData[data.id];
+        callback({
+            status: "OK",
+            state: state ? state : { mac_addr: data.id, isOnline: false },
+        });
+    });
+
+    socket.on("update-state", (data) => {
+        devicesData[data.id] = data.newState;
+        console.log("Updated State:");
+        console.log(newState);
+        callback({
+            status: "OK",
+        });
+    });
 }
 
 module.exports = {

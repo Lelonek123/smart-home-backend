@@ -20,7 +20,6 @@ io.on("connection", (socket) => {
     if (socket.handshake.query.type == "driver") {
         // driver connected
         socket.join(socket.handshake.query.id);
-        console.log(`Driver connected: ${socket.handshake.query.id}`);
     } else if (socket.handshake.query.type == "webApp") {
         // web app connected
         webClient.onConnection(socket, connection);
