@@ -95,7 +95,7 @@ function onConnection(socket, sqlCon) {
         });
     });
 
-    socket.on("update-state", (data) => {
+    socket.on("update-state", (data, callback) => {
         devicesData[data.id] = data.newState;
         console.log("Updated State:");
         console.log(data.newState);
