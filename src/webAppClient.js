@@ -98,7 +98,7 @@ function onConnection(socket, sqlCon) {
     socket.on("update-state", (data) => {
         devicesData[data.id] = data.newState;
         console.log("Updated State:");
-        console.log(newState);
+        console.log(data.newState);
         callback({
             status: "OK",
         });
